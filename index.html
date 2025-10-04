@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris vs AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Tetris vs AI</h1>
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="label">Player Score:</span>
+                    <span id="player-score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label" id="opponent-score-label">AI Score:</span>
+                    <span id="ai-score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label">Level:</span>
+                    <span id="level">1</span>
+                </div>
+            </div>
+            <div class="mode-controls">
+                <div class="mode-item">
+                    <label for="opponent-select">Opponent:</label>
+                    <select id="opponent-select">
+                        <option value="ai" selected>AI</option>
+                        <option value="p2">Player 2</option>
+                    </select>
+                </div>
+                <div class="mode-item">
+                    <label class="checkbox">
+                        <input type="checkbox" id="infinite-mode" />
+                        <span>Infinite Mode</span>
+                    </label>
+                </div>
+                <div class="mode-item">
+                    <button id="open-settings-btn">Keyboard Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="game-board-container">
+                <div class="board-label">Player</div>
+                <canvas id="player-board" width="300" height="600"></canvas>
+            </div>
+
+            <div class="game-board-container">
+                <div class="board-label" id="opponent-board-label">AI Enemy</div>
+                <canvas id="ai-board" width="300" height="600"></canvas>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <div class="next-piece-container">
+                <div class="next-piece-label">Next Piece</div>
+                <canvas id="next-piece" width="120" height="120"></canvas>
+            </div>
+
+            <div class="controls-info">
+                <h3>Controls:</h3>
+                <div class="control-item">← → Move</div>
+                <div class="control-item">↓ Soft Drop</div>
+                <div class="control-item">↑ Rotate</div>
+                <div class="control-item">Space Hard Drop</div>
+                <div class="control-item">P Pause</div>
+            </div>
+
+            <div class="game-buttons">
+                <button id="start-btn">Start Game</button>
+                <button id="pause-btn" disabled>Pause</button>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Game Over!</h2>
+            <div class="final-scores">
+                <div class="final-score">Player: <span id="final-player-score">0</span></div>
+                <div class="final-score"><span id="final-opponent-label">AI</span>: <span id="final-ai-score">0</span>
+                </div>
+            </div>
+            <div class="winner" id="winner"></div>
+            <button id="play-again-btn">Play Again</button>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content settings-content">
+            <h2>Keyboard Settings</h2>
+            <div class="settings-section">
+                <h3>Player 1</h3>
+                <div class="settings-row"><span>Left</span><button class="keybind" data-player="p1"
+                        data-action="left">ArrowLeft</button></div>
+                <div class="settings-row"><span>Right</span><button class="keybind" data-player="p1"
+                        data-action="right">ArrowRight</button></div>
+                <div class="settings-row"><span>Soft Drop</span><button class="keybind" data-player="p1"
+                        data-action="down">ArrowDown</button></div>
+                <div class="settings-row"><span>Rotate</span><button class="keybind" data-player="p1"
+                        data-action="rotate">ArrowUp</button></div>
+                <div class="settings-row"><span>Hard Drop</span><button class="keybind" data-player="p1"
+                        data-action="hard">Space</button></div>
+            </div>
+            <div class="settings-section">
+                <h3>Player 2</h3>
+                <div class="settings-row"><span>Left</span><button class="keybind" data-player="p2"
+                        data-action="left">KeyA</button></div>
+                <div class="settings-row"><span>Right</span><button class="keybind" data-player="p2"
+                        data-action="right">KeyD</button></div>
+                <div class="settings-row"><span>Soft Drop</span><button class="keybind" data-player="p2"
+                        data-action="down">KeyS</button></div>
+                <div class="settings-row"><span>Rotate</span><button class="keybind" data-player="p2"
+                        data-action="rotate">KeyW</button></div>
+                <div class="settings-row"><span>Hard Drop</span><button class="keybind" data-player="p2"
+                        data-action="hard">ShiftRight</button></div>
+            </div>
+            <div class="settings-actions">
+                <button id="save-settings-btn">Save</button>
+                <button id="cancel-settings-btn">Cancel</button>
+            </div>
+            <div class="settings-hint">Click a button, then press a key to bind. Esc to clear.</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
